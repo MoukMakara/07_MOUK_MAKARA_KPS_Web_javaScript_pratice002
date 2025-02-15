@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dueDate = new Date(document.getElementById("due_date").value);
     const priority = document.getElementById("priority").value;
     const today = new Date().setHours(0, 0, 0, 0);
-    const validName = /^[A-Za-z0-9\s]+$/.test(taskName);
+    const validName = /^[A-Za-z\s]+$/.test(taskName);
     const validDate = !isNaN(dueDate.getTime()) && dueDate >= today;
 
     console.log("taskname: ", taskName);
@@ -18,17 +18,26 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("validateName: ", validName);
     console.log("validateDate: ", validDate);
 
-    // dateError
+    // dateError and taskNameError
     const dateError = document.getElementById("dateError");
-
+    const taskNameError = document.getElementById("taskNameError");
+    
     console.log("Form validation:", { validName, validDate, priority });
 
     // show or hide dateError
+    if (!validName) {
+      taskNameError.style.display = "block";
+    } else {
+      taskNameError.style.display = "none";
+    }
     if (!validDate) {
       dateError.style.display = "block";
     } else {
       dateError.style.display = "none";
     }
+    console.log("dateError",dateError);
+    console.log("taskNameError", taskNameError);
+    
 
     return validName && validDate && priority;
   };
